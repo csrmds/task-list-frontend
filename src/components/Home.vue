@@ -54,7 +54,6 @@ import axios from 'axios'
 import TaskNew from './TaskNew.vue'
 import TaskList from './TaskList.vue'
 import TaskEditModal from './TaskEditModal.vue'
-import LoginForm from './Login.vue'
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL
 
@@ -63,8 +62,7 @@ export default {
 	components: {
 		TaskNew,
 		TaskList,
-		TaskEditModal,
-		LoginForm
+		TaskEditModal
 	},
 
 	props: {
@@ -84,7 +82,7 @@ export default {
 		async getUserData() {
 			try {
 				const response = await axios.get(`${backendUrl}/api/auth/check`)
-				console.log("userCheck: ", response.data)
+				//console.log("userCheck: ", response.data)
 				if (response.data.data) {
 					this.userData = response.data.data
 					this.userAutenticated = true

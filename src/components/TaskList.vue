@@ -61,7 +61,7 @@
 			<v-card-text>
 				<h4>Deseja deletar essa tarefa?</h4>
 				<p class="mt-4 text-subtitle-1">
-					{{ selectedTask.descricao }}
+					{{ selectedTask.resumo }}
 				</p>
 				<p class="mb-4">
 					{{ formatDate(selectedTask.agenda_inicio) }}
@@ -77,6 +77,14 @@
 					Sim
 				</v-btn>
 			</v-card-actions>
+
+			<v-card-item v-if="alertErrorView">
+				<v-row>
+					<v-col cols="12">
+						<v-alert :text="alertErrorMessage" type="error" variant="tonal" />
+					</v-col>
+				</v-row>
+			</v-card-item>
 		</v-card>
 	</v-dialog>
 </template>
@@ -105,7 +113,6 @@ export default {
 			selectedTask: {
 				id: null,
 				resumo: null,
-				descricao: null,
 				agenda_inicio: null,
 				status: null
 			},
@@ -126,7 +133,9 @@ export default {
 			iconEnable,
 			iconDisabled,
 			// calendarIcon: true,
-			filterConcluidas: false
+			filterConcluidas: false,
+			alertErrorView: false,
+			alertErrorMessage: ''
 		};
 	},
 
@@ -159,28 +168,26 @@ export default {
 
 		},
 
-
-		async edit(id) {
-			const params = new URLSearchParams({ id })
-			const response = await fetch('/task/id?' + params.toString());
-			const data = await response.json()
-			this.selectedTask = data
-
-		},
-
 		async destroy(param) {
-			const taskData = new URLSearchParams({ taskData: JSON.stringify(param) })
 
 			try {
 				if (param.google_calendar_id) {
 					const responseGoogle = await axios.post(`/gcalendar/deleteevent/`, { eventData: param });
 				}
 
-				const response = await fetch(`/task/destroy?${taskData.toString()}`);
-				const data = await response.json()
-				this.deleteConfirmView = false
+				const response = await axios.post('/task/destroy', {taskData: param});
+				if (response.data.success) {
+					this.deleteConfirmView = false
+					console.log("deletado com sucesso")
+				} else {
+					this.alertErrorMessage= `Erro ao deletar tarefa: ${response.data.error}`
+					this.alertErrorView= true
+				}
+				
 			} catch (error) {
-				console.error("Erro ao deletar tarefa: ", error)
+				//console.error(`Erro ao deletar tarefa: ${error?.response.message}`)
+				this.alertErrorMessage= `Erro ao deletar tarefa: ${error?.response.message}`
+				this.alertErrorView= true
 			}
 
 
@@ -190,7 +197,6 @@ export default {
 
 		cleanSelectedTask() {
 			this.selectedTask.id = null
-			this.selectedTask.descricao = null
 			this.selectedTask.agenda_inicio = null
 			this.selectedTask.status = null
 		},

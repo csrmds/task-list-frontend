@@ -236,6 +236,7 @@ export default {
 				}
 
 				const response = await axios.post('/gcalendar/createevent', { eventData: eventData })
+				console.log('createGoogleEvent response: ', response.data)
 				return response.data
 
 			} catch (error) {
@@ -278,19 +279,23 @@ export default {
 
 			try {
 
+				//validação de formulário
 				if (this.googleCalendar) await this.schemaCalendar.validate(this.form, { abortEarly: false })
-
 				await this.schema.validate(this.form, { abortEarly: false })
 				this.loaderView = true
 
+				//salva tarefa no banco de dados local
 				const response= await axios.post('/task/store', {taskData: taskData})
+				console.log('response.data task/Store: ', response.data.data)
 
+				//envia requisição para salvar no google calendar
 				if (this.googleCalendar) {
-					const googleEvent = await this.createGoogleEvent(response.data.id)
+					const googleEvent = await this.createGoogleEvent(response.data.data.id)
+					console.log("retorno googleEvent: ", googleEvent)
 					if (!googleEvent.success) return false
 
-					this.google_calendar_id = googleEvent.response.id,
-					this.google_calendar_link = googleEvent.response.htmlLink
+					this.google_calendar_id = googleEvent.data.id,
+					this.google_calendar_link = googleEvent.data.htmlLink
 				}
 
 				this.cleanFields()

@@ -6,9 +6,9 @@
 		</nav-bar>
 
 		<v-row class="mt-18 d-flex justify-center">
-			<v-col cols="12" sm="11" md="10" lg="8" xl="6">
+			<v-col cols="12" sm="11" md="10" lg="7" xl="6">
 				<login-form 
-					v-if="!userAutenticated"
+					v-if="!userAuthenticated"
 					@set-user-authentication="setUserAuthentication($event)"
 					>
 				</login-form>
@@ -18,10 +18,13 @@
 
 		<v-row>
 			<v-col>
-				<v-btn @click="checkUserData()">CheckUserData componente App</v-btn>
+				<v-btn @click="checkUserAuth()">checkUserAuth</v-btn>
+			</v-col>
+
+			<v-col>
+				<v-btn @click="userAuthenticated=!userAuthenticated">Teste</v-btn>
 			</v-col>
 		</v-row>
-
 		
 	</v-app>
 </template>
@@ -30,6 +33,7 @@
 import NavBar from './components/NavBar.vue'
 import Home from './components/Home.vue'
 import LoginForm from './components/Login.vue'
+import axios from 'axios'
 
 
 export default {
@@ -43,7 +47,7 @@ export default {
 				type: Object,
 				default: () => ({})
 			},
-			userAutenticated: false,
+			userAuthenticated: false,
 
 		}
 	},
@@ -52,37 +56,64 @@ export default {
 		setUserAuthentication(param) {
 			this.userData = param
 			if (param) {
-				console.log("setUserAuthentication param IF true: ", param)
-				this.userAutenticated = true
+				//console.log("setUserAuthentication param IF true: ", param)
+				this.userAuthenticated = true
 			} else {
-				console.log("setUserAuthentication param IF False: ", param)
-				this.userAutenticated = false
+				//console.log("setUserAuthentication param IF False: ", param)
+				this.userAuthenticated = false
 			}
 			
 		},
 
 		async checkUserAuth() {
+			//console.log("checkUser /api/auth/check")
 			try {
-				const response= await axios.get(`${this.backendUrl}/api/auth/check`)
-				console.log("checkUser response: ", response.data)
+				const response= await axios.get(`/auth/check`)
+				//console.log("checkUser response: ", response.data)
+				this.setUserAuthentication(response.data.data)
 				this.userAuthenticated= true
 			} catch(err) {
-				console.log('usuário nao autenticado: ', err.response?.data)
+				console.log('usuário nao autenticado: ', err?.response.data.message)
 				this.userAuthenticated= false
+				this.setUserAuthentication(null)
 				localStorage.removeItem('auth_token')
 			}
+			//console.log('LocalStorage: ', localStorage.getItem('auth_token'))
+			//console.log('this.dataUser: ', this.userData)
 			
 		},
 
-		checkUserData() {
-			console.log("App.vue checkuserdata: ", this.userData)
-			console.log("token localStorage: ", localStorage.getItem('auth_token'))
-		}
 	},
 
 	mounted() {
-		console.log("localStorage token: ", localStorage.getItem('auth_token'))
-		//this.checkUserAuth()
+
+		this.checkUserAuth()
+
+		const params= new URLSearchParams(window.location.search)
+		const googleLoginStatus= params.get('google_auth')
+		const email= params.get('email')
+		const name= params.get('name')
+		const last_name= params.get('last_name')
+		const avatar= params.get('avatar')
+		const access_token= params.get('access_token')
+		const message= params.get('message')
+
+		if (googleLoginStatus === 'success') {
+			// Buscar dados do usuário autenticado via API
+			//this.$router.replace({ query: {} }) // Limpa a query da URL se usar Vue Router
+			this.setUserAuthentication({email, name, last_name, avatar, access_token})
+			localStorage.setItem('auth_token', access_token)
+			this.checkUserAuth()
+			this.userAutenticated = true
+		} else if (googleLoginStatus === 'error') {
+			// Exibir mensagem de erro
+			alert(message || 'Erro ao autenticar com Google')
+			this.$router.replace({ query: {} })
+			this.userAutenticated = false
+		}
+
+		//console.log("localStorage token: ", localStorage.getItem('auth_token'))
+		
 	}
 
 }

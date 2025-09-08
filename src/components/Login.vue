@@ -30,7 +30,7 @@
 					<v-col cols="6" class="d-flex justify-center">
 						<button class="gsi-material-button" type="button">
 							<div class="gsi-material-button-state" />
-							<div class="gsi-material-button-content-wrapper" onclick="window.location.href='/auth/google'">
+							<div class="gsi-material-button-content-wrapper" @click="getGoogleLogin()">
 								<div class="gsi-material-button-icon">
 									<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"
 										xmlns:xlink="http://www.w3.org/1999/xlink" style="display: block;">
@@ -128,10 +128,15 @@ export default {
 						this.errors[e.path] = e.message
 					})
 				} else {
-					this.alertErrorMessage = err
-					console.error('Erro ao fazer login: ', err)
+					this.alertErrorMessage = err.message
+					this.alertErrorView = true
+					console.error('Erro ao fazer login: ', err.message)
 				}
 			}
+		},
+
+		getGoogleLogin() {
+			window.location.href = `${this.backendUrl}/auth/google`
 		},
 
 		callSetUserAuthentication(param) {
