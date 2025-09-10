@@ -1,19 +1,15 @@
 <template>
-	<v-card class="bg-teal-lighten-5">
+	<v-card class="">
 		<v-row class="my-2">
 			<v-col cols="9">
 				<v-text-field v-model="search" label="Filtro" variant="underlined" hide-details single-line
-					class="px-4 bg-teal-lighten-5" />
+					class="px-4 " />
 			</v-col>
 			<v-col class="d-flex justify-center">
-				<v-switch v-model="filterConcluidas" label="Concluidas" color="primary" class="bg-teal-lighten-5" hide-details
+				<v-switch v-model="filterConcluidas" label="Concluidas" color="primary" class="" hide-details
 					@change="getList()" />
 			</v-col>
 		</v-row>
-	
-	
-
-
 	
 
 	<v-data-table 
@@ -22,30 +18,30 @@
 		:items-per-page="dataTableItemsPerPage" 
 		:search="search"
 		hide-default-footer 
-		class="bg-teal-lighten-5 my-2">
+		class=" my-2">
 		<template #item="{ item }">
 			<tr>
 				<td>{{ item.resumo }}</td>
 				<td class="text-center">
 					{{ formatDate(item.agenda_inicio) }}
-					<v-btn class="bg-teal-lighten-5" icon readonly flat>
+					<v-btn class="" icon readonly flat>
 						<img v-if="item.google_calendar_id" :src="iconEnable" width="24">
 						<!-- <img v-else="item.google_calendar_id" :src="iconDisabled" width="24" > -->
 					</v-btn>
 				</td>
 				<td :class="{
 					'text-center': true,
-					'bg-yellow-lighten-4': item.status === 'A fazer',
-					'bg-green-lighten-4': item.status === 'Concluido',
-					'bg-blue-lighten-4': item.status === 'Em progresso'
+					'bg-warning': item.status === 'A fazer',
+					'bg-success': item.status === 'Concluido',
+					'bg-info': item.status === 'Em progresso'
 				}">
 					{{ item.status }}
 				</td>
 				<td class="d-flex ga-2 align-center justify-center">
 					<v-btn icon="mdi-file-edit-outline" variant="elevated" size="default" density="comfortable"
-						class="bg-teal-lighten-2" @click="callEditModal(item)" />
+						class="bg-secondary" @click="callEditModal(item)" />
 					<v-btn icon="mdi-delete-outline" variant="elevated" size="default" density="comfortable"
-						class="bg-red-lighten-2" @click="() => {
+						class="bg-error" @click="() => {
 							deleteConfirmView = true
 							selectedTask = item
 						}" />

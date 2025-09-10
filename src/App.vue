@@ -15,16 +15,6 @@
 				<home v-else :user-data="userData" ></home>
 			</v-col>
 		</v-row>
-
-		<v-row>
-			<v-col>
-				<v-btn @click="checkUserAuth()">checkUserAuth</v-btn>
-			</v-col>
-
-			<v-col>
-				<v-btn @click="userAuthenticated=!userAuthenticated">Teste</v-btn>
-			</v-col>
-		</v-row>
 		
 	</v-app>
 </template>

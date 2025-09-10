@@ -1,5 +1,5 @@
 <template>
-	<v-card class="pa-4 bg-green-lighten-4">
+	<v-card class="pa-4">
 		<v-row>
 			<v-col>
 				<v-textarea v-model="form.resumo" rows="1" label="Nova Tarefa" variant="underlined" :error="!!errors.resumo"

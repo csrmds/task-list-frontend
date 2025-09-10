@@ -1,11 +1,17 @@
 <template>
-	<v-card title="Login" class="bg-blue-grey-lighten-4">
+	<v-card title="Login">
 		<v-form ref="formRef" v-model="formIsValid">
 			<v-card-item>
 				<v-row>
 					<v-col cols="12">
-						<v-text-field v-model="form.email" label="Email" variant="underlined" :error="!!errors.email"
-							:error-messages="errors.email" />
+						<v-select 
+							label="Email"
+							variant="underlined"
+							v-model="form.email" 
+							:items="['celia@email.com', 'marcos@email.com']"
+							:error="!!errors.email"
+							:error-messages="errors.email">
+						</v-select>
 					</v-col>
 				</v-row>
 				<v-row>
@@ -20,7 +26,7 @@
 
 
 			<v-card-actions class="mt-6">
-				<v-row class="">
+				<v-row>
 					<v-col cols="6" class="d-flex justify-center">
 						<v-btn width="100%" max-width="200px" height="40" variant="tonal" @click="submitLogin()">
 							Login
@@ -46,7 +52,7 @@
 									</svg>
 								</div>
 
-								<span class="gsi-material-button-contents">Continuar com Google</span>
+								<span class="gsi-material-button-contents" style="color: black">Continuar com Google</span>
 								<span style="display: none;">Continuar com Google</span>
 							</div>
 						</button>
@@ -84,7 +90,7 @@ export default {
 			loaderView: false,
 			form: {
 				email: 'celia@email.com',
-				password: 'corisco'
+				password: ''
 			},
 			errors: {
 				email: '',

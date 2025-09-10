@@ -12,10 +12,6 @@
 				</v-list>
 			</v-menu>
 		</v-btn>
-		
-		<v-btn v-else href="/login" class="mr-6">
-			Login
-		</v-btn>
 
 	</v-app-bar>
 </template>

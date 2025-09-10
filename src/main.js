@@ -2,7 +2,6 @@ import { createApp } from 'vue'
 import axios from 'axios'
 import './css/style.css'
 import './css/custom.css'
-import './css/tailwind-bg-colors.css'
 import App from './App.vue'
 
 
@@ -18,25 +17,49 @@ import '@mdi/font/css/materialdesignicons.css'
 
 // Vuetify configuration
 const vuetify = createVuetify({
-    components,
-    directives,
-    theme: {
-        defaultTheme: 'dark',
-    },
-    icons: {
-        defaultSet: 'mdi',
-    },
+	components,
+	directives,
+	theme: {
+		defaultTheme: 'customTheme',
+		themes: {
+			customTheme: {
+				dark: false,
+				colors: {
+					primary: '#166534',      // verde escuro (folha)
+					secondary: '#65a30d',    // verde claro (musgo)
+					accent: '#facc15',       // amarelo (luz filtrada)
+					surface: '#334155',      // cinza azulado escuro (tronco/sombra)
+					background: '#0f172a',   // quase preto (fundo floresta)
+					error: '#dc2626',        // vermelho escuro
+					info: '#38bdf8',         // azul claro
+					success: '#22c55e',      // verde vibrante
+					warning: '#f59e42',      // laranja suave
+				}
+			},
+			light: {
+				dark: false,
+				colors: {
+					primary: '#1976D2',
+					secondary: '#424242',
+					background: '#FFFFFF',
+				}
+			},
+			dark: {
+				dark: true,
+				colors: {
+					primary: '#c39738',
+					secondary: '#ffff96',
+					background: '#361f00',
+				}
+			}
+		}
+	},
+	icons: {
+		defaultSet: 'mdi',
+	},
 })
 
 
-// CSRF Token configuration
-// const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-// if (token) {
-//     axios.defaults.headers.common['X-CSRF-TOKEN'] = token
-//     window.csrfToken = token
-// } else {
-//     console.error('CSRF token não encontrado!')
-// }
 
 // CONFIGURAÇÃO GLOBAL AXIOS
 axios.defaults.baseURL= 'http://localhost:8000/api'

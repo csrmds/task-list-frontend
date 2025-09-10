@@ -1,6 +1,6 @@
 <template>
 	<v-dialog v-model="modalView">
-		<v-card class="bg-green-lighten-4">
+		<v-card class="">
 			<v-card-title class="d-flex justify-space-between align-center">
 				<div class="text-h6 text-medium-emphasis ps-2">
 					Edição de tarefa
