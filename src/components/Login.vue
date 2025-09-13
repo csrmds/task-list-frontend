@@ -70,6 +70,14 @@
 					</v-col>
 				</v-row>
 			</v-card-item>
+
+			<v-card-item>
+				<v-row>
+					<v-col>
+						<v-btn @click="teste()">Teste</v-btn>
+					</v-col>
+				</v-row>
+			</v-card-item>
 		</v-form>
 	</v-card>
 </template>
@@ -139,6 +147,13 @@ export default {
 					console.error('Erro ao fazer login: ', err.message)
 				}
 			}
+		},
+
+		async teste() {
+			const response= await axios.get(`${this.backendUrl}/xc`)
+
+			console.log("URL: ", `${this.backendUrl}/xc`)
+			console.log("Response: ", response)
 		},
 
 		getGoogleLogin() {

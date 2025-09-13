@@ -62,7 +62,7 @@ const vuetify = createVuetify({
 
 
 // CONFIGURAÇÃO GLOBAL AXIOS
-axios.defaults.baseURL= 'http://localhost:8000/api'
+axios.defaults.baseURL= `${import.meta.env.VITE_BACKEND_URL}/api` 
 axios.interceptors.request.use(config=> {
     const token= localStorage.getItem('auth_token')
     if (token) {
