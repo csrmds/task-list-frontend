@@ -23,7 +23,7 @@
 			<tr>
 				<td>{{ item.resumo }}</td>
 				<td class="text-center">
-					{{ formatDate(item.agenda_inicio) }}
+					{{ formatDate(item.agenda) }}
 					<v-btn class="" icon readonly flat>
 						<img v-if="item.google_calendar_id" :src="iconEnable" width="24">
 						<!-- <img v-else="item.google_calendar_id" :src="iconDisabled" width="24" > -->
@@ -60,7 +60,7 @@
 					{{ selectedTask.resumo }}
 				</p>
 				<p class="mb-4">
-					{{ formatDate(selectedTask.agenda_inicio) }}
+					{{ formatDate(selectedTask.agenda) }}
 				</p>
 			</v-card-text>
 
@@ -109,12 +109,12 @@ export default {
 			selectedTask: {
 				id: null,
 				resumo: null,
-				agenda_inicio: null,
+				agenda: null,
 				status: null
 			},
 			dataTableHeaders: [
 				{ title: "Tarefa", align: "start", key: "resumo" },
-				{ title: "Agenda", align: "center", key: "agenda_inicio" },
+				{ title: "Agenda", align: "center", key: "agenda" },
 				{ title: "Status", align: "center", key: "status" },
 				{ title: "Ações", align: "center" }
 			],
@@ -193,7 +193,7 @@ export default {
 
 		cleanSelectedTask() {
 			this.selectedTask.id = null
-			this.selectedTask.agenda_inicio = null
+			this.selectedTask.agenda = null
 			this.selectedTask.status = null
 		},
 

@@ -85,7 +85,7 @@ export default {
 	data() {
 		return {
 			descricao: null,
-			agenda_inicio: null,
+			agenda: null,
 			agenda_data: null,
 			agenda_hora: null,
 			status: "A fazer",
@@ -181,7 +181,7 @@ export default {
 
 		cancelDate() {
 			this.form.agenda_data = null
-			this.agenda_inicio = null
+			this.agenda = null
 			this.agenda_hora = null
 			this.datePickerView = false
 		},
@@ -189,7 +189,7 @@ export default {
 		cleanFields() {
 			this.form.resumo = null,
 				this.descricao = null,
-				this.agenda_inicio = null,
+				this.agenda = null,
 				this.agenda_data = null,
 				this.agenda_hora = null,
 				this.status = "A fazer",
@@ -263,14 +263,14 @@ export default {
 				const [d, M, y] = (this.form.agenda_data).split('/')
 				const [h, m, s] = (this.agenda_hora || "00:00:03").split(':')
 				const dataHora = new Date(y, M - 1, d, h, m)
-				this.agenda_inicio = format(dataHora, 'yyyy-MM-dd HH:mm:ss')
+				this.agenda = format(dataHora, 'yyyy-MM-dd HH:mm:ss')
 			}
 
 
 			const taskData = {
 				resumo: this.form.resumo,
 				descricao: this.descricao,
-				agenda_inicio: this.agenda_inicio,
+				agenda: this.agenda,
 				status: this.status,
 				google_calendar_id: this.google_calendar_id,
 				google_calendar_link: this.google_calendar_link,
