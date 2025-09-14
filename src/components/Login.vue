@@ -27,13 +27,13 @@
 
 			<v-card-actions class="mt-6">
 				<v-row>
-					<v-col cols="6" class="d-flex justify-center">
+					<v-col cols="12" class="d-flex justify-center">
 						<v-btn width="100%" max-width="200px" height="40" variant="tonal" @click="submitLogin()">
 							Login
 						</v-btn>
 					</v-col>
 
-					<v-col cols="6" class="d-flex justify-center">
+					<!-- <v-col cols="6" class="d-flex justify-center">
 						<button class="gsi-material-button" type="button">
 							<div class="gsi-material-button-state" />
 							<div class="gsi-material-button-content-wrapper" @click="getGoogleLogin()">
@@ -56,7 +56,7 @@
 								<span style="display: none;">Continuar com Google</span>
 							</div>
 						</button>
-					</v-col>
+					</v-col> -->
 				</v-row>
 			</v-card-actions>
 

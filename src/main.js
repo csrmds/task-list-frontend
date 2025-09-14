@@ -25,15 +25,15 @@ const vuetify = createVuetify({
 			customTheme: {
 				dark: false,
 				colors: {
-					primary: '#166534',      // verde escuro (folha)
-					secondary: '#65a30d',    // verde claro (musgo)
-					accent: '#facc15',       // amarelo (luz filtrada)
-					surface: '#334155',      // cinza azulado escuro (tronco/sombra)
-					background: '#0f172a',   // quase preto (fundo floresta)
-					error: '#dc2626',        // vermelho escuro
-					info: '#38bdf8',         // azul claro
-					success: '#22c55e',      // verde vibrante
-					warning: '#f59e42',      // laranja suave
+					primary: '#3d423c',    // verde-acinzentado escuro (cor de destaque principal)
+					secondary: '#b2b39f',  // oliva claro e suave
+					accent: '#f5f7bd',     // amarelo pálido (detalhes e destaques)
+					surface: '#dedfc5',    // bege claro para superfícies
+					background: '#c8c9b5', // cinza/bege médio para fundo
+					error: '#a33a3a',      // vermelho terroso
+					info: '#4f6d7a',       // azul esverdeado suave
+					success: '#6b8f71',    // verde natural discreto
+					warning: '#d4a373',    // marrom/laranja suave
 				}
 			},
 			light: {
