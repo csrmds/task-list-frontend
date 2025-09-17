@@ -56,7 +56,6 @@ export default {
 		},
 
 		callSetUserAuthentication(param) {
-			//console.log("call user atutenticated")
 			this.$emit('setUserAuthentication', param)
 		}
 
@@ -65,7 +64,6 @@ export default {
 	watch: {
 		userData: {
 			handler(newVal) {
-				//console.log("identificou mudança: ", newVal)
 				if (newVal?.email) this.userAuthenticated= true
 			},
 			deep: true

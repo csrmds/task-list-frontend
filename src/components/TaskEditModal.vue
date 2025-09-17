@@ -20,7 +20,7 @@
 
 			<v-card-actions class="ma-4">
 				<v-row>
-					<v-col cols="2" align-self="center">
+					<v-col cols="4" sm="4" md="3" lg="3" xl="2" align-self="center">
 						<v-text-field v-model="form.agenda_data" v-mask="'##/##/####'" label="Data" variant="underlined"
 							:error="!!errors.agenda_data" :error-messages="errors.agenda_data" autocomplete="off">
 							<v-menu id="dropdown-date" v-model="datePickerView" activator="parent"
@@ -41,18 +41,18 @@
 						</v-text-field>
 					</v-col>
 
-					<v-col cols="2" align-self="center">
+					<v-col cols="3" sm="3" md="3" lg="3" xl="2" align-self="center">
 						<v-combobox v-model="agenda_hora" v-mask="'##:##'" label="Horário" :items="horaList"
 							variant="underlined" autocomplete="off" />
 					</v-col>
 
-					<v-col cols="2" align-self="center">
+					<v-col cols="5" sm="5" md="3" lg="3" xl="3" align-self="center">
 						<v-select v-model="status" label="Status" :items="['A fazer', 'Em progresso', 'Concluido']"
 							variant="underlined" />
 					</v-col>
 
-					<v-col cols="2" class="d-flex flex-column vertical-center">
-						<div v-if="isGoogleAccount">
+					<v-col v-if="isGoogleAccount" cols="3" class="d-flex flex-column vertical-center">
+						<div>
 							<label>Google Calendar</label>
 							<div class="d-flex ga-1 flex-row justify-center">
 								<img :src="calendarIcon" width="24">
@@ -61,11 +61,7 @@
 						</div>
 					</v-col>
 
-					<v-col cols="2" align-self="center" class="d-flex justify-center ga-2 ">
-						<!-- <p>ID: {{ google_calendar_id }}</p> -->
-					</v-col>
-
-					<v-col cols="2" align-self="center" class="d-flex justify-center ga-2 ">
+					<v-col cols="2" sm="2" md="2" lg="2" xl="2" offset-lg="1" offset-xl="3" align-self="center" class="d-flex justify-center ga-2 ">
 						<v-btn v-if="!loaderView" variant="tonal" class="w-100" @click="save()">
 							Salvar
 						</v-btn>
@@ -80,7 +76,6 @@
 <script>
 import { format } from "date-fns"
 import axios from "axios"
-// import iconEnable from '@/assets/gcalendar.svg'
 import iconEnable from '../assets/gcalendar.svg'
 import iconDisabled from '../assets/gcalendar_disabled.svg'
 import * as yup from 'yup'
@@ -105,7 +100,6 @@ export default {
 			agenda: null,
 			agenda_data: null,
 			agenda_hora: null,
-			status: null,
 			google_calendar_id: null,
 			google_calendar_link: null,
 			user_id: null,
@@ -380,16 +374,7 @@ export default {
 				await this.schema.validate(this.form, { abortEarly: false })
 				this.loaderView = true
 
-				// const response = await fetch('/task/update', {
-				// 	method: 'POST',
-				// 	headers: {
-				// 		'Content-Type': 'application/json',
-				// 		'Accept': 'application/json',
-				// 		'X-CSRF-TOKEN': window.csrfToken
-				// 	},
-				// 	body: JSON.stringify({ taskData: taskData })
-				// })
-				const response= await axios.post('/task/update', {taskData: taskData})
+				await axios.post('/task/update', {taskData: taskData})
 
 				this.cleanFields()
 				this.callRefreshTaskList()

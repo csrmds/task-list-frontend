@@ -15,7 +15,7 @@
 
 
 		<v-row>
-			<v-col cols="2" align-self="center">
+			<v-col cols="3" sm="3" md="2" lg="2" align-self="center">
 				<v-text-field v-model="form.agenda_data" v-mask="'##/##/####'" label="Data" variant="underlined"
 					:error="!!errors.agenda_data" :error-messages="errors.agenda_data" autocomplete="off">
 					<v-menu id="dropdown-date" v-model="datePickerView" activator="parent" :close-on-content-click="false">
@@ -35,17 +35,17 @@
 				</v-text-field>
 			</v-col>
 
-			<v-col cols="2" align-self="center">
+			<v-col cols="3" sm="2" md="2" align-self="center">
 				<v-combobox v-model="agenda_hora" v-mask="'##:##'" label="Hora" :items="horaList" variant="underlined"
 					autocomplete="off" />
 			</v-col>
 
-			<v-col cols="2" align-self="center">
+			<v-col cols="4" sm="3" md="3" align-self="center">
 				<v-select v-model="status" label="Status" :items="['A fazer', 'Em progresso', 'Concluido']"
 					variant="underlined" />
 			</v-col>
 
-			<v-col v-if="isGoogleAccount" cols="2" class="d-flex flex-column">
+			<v-col v-if="isGoogleAccount" cols="4" sm="3" md="3" lg="3" class="d-flex flex-column">
 				<label>Google Calendar</label>
 				<div id="calendarDiv" class="d-flex ga-1 flex-row justify-center">
 					<img :src="calendarIcon" width="24">
@@ -99,7 +99,6 @@ export default {
 			googleCalendar: false,
 			iconEnable,
 			iconDisabled,
-			// calendarIcon: this.googleCalendar,
 			loaderView: false,
 			horaList: [
 				"06:00",

@@ -21,8 +21,8 @@
 
 <script>
 import NavBar from './components/NavBar.vue'
-import Home from './components/Home.vue'
-import LoginForm from './components/Login.vue'
+import Home from './components/HomeComponent.vue'
+import LoginForm from './components/LoginComponent.vue'
 import axios from 'axios'
 
 
@@ -46,20 +46,16 @@ export default {
 		setUserAuthentication(param) {
 			this.userData = param
 			if (param) {
-				//console.log("setUserAuthentication param IF true: ", param)
 				this.userAuthenticated = true
 			} else {
-				//console.log("setUserAuthentication param IF False: ", param)
 				this.userAuthenticated = false
 			}
 			
 		},
 
 		async checkUserAuth() {
-			//console.log("checkUser /api/auth/check")
 			try {
 				const response= await axios.get(`/auth/check`)
-				//console.log("checkUser response: ", response.data)
 				this.setUserAuthentication(response.data.data)
 				this.userAuthenticated= true
 			} catch(err) {
@@ -68,8 +64,6 @@ export default {
 				this.setUserAuthentication(null)
 				localStorage.removeItem('auth_token')
 			}
-			//console.log('LocalStorage: ', localStorage.getItem('auth_token'))
-			//console.log('this.dataUser: ', this.userData)
 			
 		},
 
@@ -90,7 +84,6 @@ export default {
 
 		if (googleLoginStatus === 'success') {
 			// Buscar dados do usuário autenticado via API
-			//this.$router.replace({ query: {} }) // Limpa a query da URL se usar Vue Router
 			this.setUserAuthentication({email, name, last_name, avatar, access_token})
 			localStorage.setItem('auth_token', access_token)
 			this.checkUserAuth()
@@ -101,8 +94,6 @@ export default {
 			this.$router.replace({ query: {} })
 			this.userAutenticated = false
 		}
-
-		//console.log("localStorage token: ", localStorage.getItem('auth_token'))
 		
 	}
 

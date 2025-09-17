@@ -38,13 +38,6 @@
       />
     </v-col>
   </v-row>
-
-	<!-- <v-row class="mt-18">
-		<v-col>
-			<v-btn @click="getUserData">userCheck</v-btn>
-		</v-col>
-	</v-row> -->
-
 	
 </template>
 
@@ -82,7 +75,6 @@ export default {
 		async getUserData() {
 			try {
 				const response = await axios.get(`${backendUrl}/api/auth/check`)
-				//console.log("userCheck: ", response.data)
 				if (response.data.data) {
 					this.userData = response.data.data
 					this.userAutenticated = true
@@ -94,7 +86,6 @@ export default {
 		},
 
 		refreshTaskList() {
-			//console.log("ouviu e chamou refreshTaskList no componente Pai")
 			this.$refs.TaskList.getList()
 		},
 
@@ -104,10 +95,7 @@ export default {
 		},
 
 	},
-
-	mounted() {
-		//console.log("componente montado..")
-	}
+	
 }
 
 </script>

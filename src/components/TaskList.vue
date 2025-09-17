@@ -26,7 +26,6 @@
 					{{ formatDate(item.agenda) }}
 					<v-btn class="" icon readonly flat>
 						<img v-if="item.google_calendar_id" :src="iconEnable" width="24">
-						<!-- <img v-else="item.google_calendar_id" :src="iconDisabled" width="24" > -->
 					</v-btn>
 				</td>
 				<td :class="{
@@ -128,7 +127,6 @@ export default {
 			],
 			iconEnable,
 			iconDisabled,
-			// calendarIcon: true,
 			filterConcluidas: false,
 			alertErrorView: false,
 			alertErrorMessage: ''
@@ -168,7 +166,7 @@ export default {
 
 			try {
 				if (param.google_calendar_id) {
-					const responseGoogle = await axios.post(`/gcalendar/deleteevent/`, { eventData: param });
+					await axios.post(`/gcalendar/deleteevent/`, { eventData: param });
 				}
 
 				const response = await axios.post('/task/destroy', {taskData: param});
@@ -181,7 +179,6 @@ export default {
 				}
 				
 			} catch (error) {
-				//console.error(`Erro ao deletar tarefa: ${error?.response.message}`)
 				this.alertErrorMessage= `Erro ao deletar tarefa: ${error?.response.message}`
 				this.alertErrorView= true
 			}
